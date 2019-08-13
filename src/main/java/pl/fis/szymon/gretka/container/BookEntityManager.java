@@ -5,15 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-
 import pl.fis.szymon.gretka.entities.Book;
-import pl.fis.szymon.gretka.enums.Category;
+import pl.fis.szymon.gretka.entities.Category;
 
 @Stateless
 public class BookEntityManager {
@@ -39,7 +33,7 @@ public class BookEntityManager {
     
     public void updateBook(long id, Book updatedBook) {
     	Book book = entityManager.find(Book.class, id); 
-    	book.setCategory(updatedBook.getCategory());
+    	//book.addCategory(updatedBook.getCategories());
     	book.setName(updatedBook.getName());
         entityManager.merge(book);
     }

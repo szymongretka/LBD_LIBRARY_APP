@@ -36,6 +36,7 @@ public class DefaultEndopint {
 	@Path("books")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addBook(Book book) {
+		
 		bookEntityManager.addBook(book);
 	}
 	
