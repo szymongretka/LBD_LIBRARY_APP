@@ -1,34 +1,53 @@
 package pl.fis.szymon.gretka.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name = "CLIENT")
-public class Client implements Serializable{
+public class Client implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 	
 	@Id
 	@Column(name = "CLIENT_ID") 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	@JsonBackReference
+	private Set<Book> clientBooks = new HashSet<>();
 	
-	@OneToMany(mappedBy = "client")
-	private Set<Book> clientBooks;
 	
+	@Column(name = "firstname", nullable = false, length = 50) 
     private String firstName;
+	
+	
+	@Column(name = "lastname", nullable = false, length = 50) 
     private String lastName;
+	
     private String email;
+    
+    
+    public Client() {}
+    
+    public Client(String firstName, String lastName, String email) {
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.email = email;
+    }
+    
+    
     
 	public int getId() {
 		return id;
@@ -39,8 +58,10 @@ public class Client implements Serializable{
 	public Set<Book> getClientBooks() {
 		return clientBooks;
 	}
-	public void setClientBooks(Set<Book> clientBooks) {
-		this.clientBooks = clientBooks;
+	public void addBookToClient(Book book) {
+		//clientBooks.add(book);
+		//book.addClient(this);
+		book.setClient(this);
 	}
 	public String getFirstName() {
 		return firstName;
@@ -112,8 +133,5 @@ public class Client implements Serializable{
 		return "Client [id=" + id + ", clientBooks=" + clientBooks + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + "]";
 	}
-    
-    
-    
 
 }

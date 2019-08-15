@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity(name = "CATEGORY")
 public class Category implements Serializable {
@@ -28,6 +30,7 @@ public class Category implements Serializable {
     private String name;
     
     @ManyToMany(mappedBy = "categories", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Book> books = new HashSet<>();
     
     public Category() {}
@@ -61,7 +64,7 @@ public class Category implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((books == null) ? 0 : books.hashCode());
+		//result = prime * result + ((books == null) ? 0 : books.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;

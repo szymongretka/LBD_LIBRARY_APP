@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonManagedReference;;
 
 
 @Entity(name = "BOOK")
@@ -37,6 +38,7 @@ public class Book implements Serializable {
             name = "book_categories",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "category_id")})
+	@JsonManagedReference
     private Set<Category> categories = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -44,6 +46,7 @@ public class Book implements Serializable {
             name = "book_authors",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "author_id")})
+	@JsonManagedReference
     private Set<Author> authors = new HashSet<>();
 	
 	@Column(name = "isBorrowed", nullable = false)
@@ -55,6 +58,7 @@ public class Book implements Serializable {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	
+	
 	public Book() {}
 
 	public long getId() {
@@ -63,6 +67,19 @@ public class Book implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	
+	/*public void addClient(Client client) {
+		client.getClientBooks().add(this);
+	}*/
+	
+	public Client getClient() {
+		return client;
 	}
 
 	
@@ -73,7 +90,7 @@ public class Book implements Serializable {
 
 	public void addCategory(Category category) {
 		categories.add(category);
-		category.getBooks().add(this);
+		//category.getBooks().add(this);
 	}
 	
 	public Set<Author> getAuthors() {
@@ -82,7 +99,7 @@ public class Book implements Serializable {
 
 	public void addAuthor(Author author) {
 		authors.add(author);
-		author.getBooks().add(this);
+		//author.getBooks().add(this);
 	}
 	
 	
@@ -121,7 +138,7 @@ public class Book implements Serializable {
 	
 	
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -177,7 +194,7 @@ public class Book implements Serializable {
 				.map(Category::getName)
 				.collect(Collectors.toList()) + '\'' +
                 '}';
-	}
+	}*/
 
 	
 
