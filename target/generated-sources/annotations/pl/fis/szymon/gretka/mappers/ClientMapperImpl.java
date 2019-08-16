@@ -11,7 +11,7 @@ import pl.fis.szymon.gretka.entities.Client;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-08-15T23:27:00+0200",
+    date = "2019-08-16T09:56:50+0200",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.3 (Oracle Corporation)"
 )
 @ApplicationScoped

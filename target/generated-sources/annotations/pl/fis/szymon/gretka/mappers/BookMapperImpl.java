@@ -16,7 +16,7 @@ import pl.fis.szymon.gretka.entities.Client;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2019-08-15T23:27:01+0200",
+    date = "2019-08-16T09:56:50+0200",
     comments = "version: 1.3.0.Final, compiler: javac, environment: Java 11.0.3 (Oracle Corporation)"
 )
 @ApplicationScoped
@@ -122,6 +122,34 @@ public class BookMapperImpl implements BookMapper {
         }
         book.setName( bookDTO.getName() );
         book.setBorrowed( bookDTO.isBorrowed() );
+    }
+
+    @Override
+    public Set<Book> mapToBooks(List<BookDTO> booksDTO) {
+        if ( booksDTO == null ) {
+            return null;
+        }
+
+        Set<Book> set = new HashSet<Book>( Math.max( (int) ( booksDTO.size() / .75f ) + 1, 16 ) );
+        for ( BookDTO bookDTO : booksDTO ) {
+            set.add( mapToBook( bookDTO ) );
+        }
+
+        return set;
+    }
+
+    @Override
+    public Set<BookDTO> mapToBooksDTOs(List<Book> books) {
+        if ( books == null ) {
+            return null;
+        }
+
+        Set<BookDTO> set = new HashSet<BookDTO>( Math.max( (int) ( books.size() / .75f ) + 1, 16 ) );
+        for ( Book book : books ) {
+            set.add( mapToBookDTO( book ) );
+        }
+
+        return set;
     }
 
     protected Category categoryDTOToCategory(CategoryDTO categoryDTO) {

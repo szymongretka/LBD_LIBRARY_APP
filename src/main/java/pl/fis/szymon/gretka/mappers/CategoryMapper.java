@@ -14,7 +14,7 @@ import pl.fis.szymon.gretka.entities.Category;
 @Mapper(componentModel = "cdi")
 public interface CategoryMapper {
 	
-	CategoryMapper INSTANCE = Mappers.getMapper( CategoryMapper.class );
+	//CategoryMapper INSTANCE = Mappers.getMapper( CategoryMapper.class );
 	
 	@Mapping(source = "booksDTO", target = "books")
 	Category mapToCategory(CategoryDTO categoryDTO);

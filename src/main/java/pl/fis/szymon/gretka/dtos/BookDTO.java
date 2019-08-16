@@ -3,6 +3,10 @@ package pl.fis.szymon.gretka.dtos;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BookDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -43,6 +47,7 @@ public class BookDTO implements Serializable {
 	public boolean isBorrowed() {
 		return isBorrowed;
 	}
+	@JsonProperty
 	public void setBorrowed(boolean isBorrowed) {
 		this.isBorrowed = isBorrowed;
 	}

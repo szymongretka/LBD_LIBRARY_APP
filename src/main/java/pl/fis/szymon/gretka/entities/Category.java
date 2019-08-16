@@ -14,8 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity(name = "CATEGORY")
 public class Category implements Serializable {
 	
@@ -24,13 +29,13 @@ public class Category implements Serializable {
 	
 	@Id
 	@Column(name = "CATEGORY_ID") 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
     
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    //@JsonManagedReference
     private Set<Book> books = new HashSet<>();
     
     public Category() {}

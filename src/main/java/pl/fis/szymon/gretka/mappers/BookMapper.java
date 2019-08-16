@@ -16,7 +16,7 @@ import pl.fis.szymon.gretka.entities.Book;
 @Mapper(componentModel = "cdi")
 public interface BookMapper {
 	
-	BookMapper INSTANCE = Mappers.getMapper( BookMapper.class );
+	//BookMapper INSTANCE = Mappers.getMapper( BookMapper.class );
 	
 	@Mappings({
 		@Mapping(source = "categoriesDTO", target = "categories"),
@@ -35,5 +35,12 @@ public interface BookMapper {
 		@Mapping(source = "authorsDTO", target = "authors")
 	})
 	void updateBookFromDTO(BookDTO bookDTO, @MappingTarget Book book);
+	
+	
+	
+	Set<Book> mapToBooks(List<BookDTO> booksDTO);
+
+	@InheritInverseConfiguration(name = "mapToBooks")
+	Set<BookDTO> mapToBooksDTOs(List<Book> books);
 	
 }

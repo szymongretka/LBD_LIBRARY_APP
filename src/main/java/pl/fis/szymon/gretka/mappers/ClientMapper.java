@@ -12,7 +12,7 @@ import pl.fis.szymon.gretka.entities.Client;
 @Mapper(componentModel = "cdi")
 public interface ClientMapper {
 
-	ClientMapper INSTANCE = Mappers.getMapper( ClientMapper.class );
+	//ClientMapper INSTANCE = Mappers.getMapper( ClientMapper.class );
 	
 	@Mapping(source = "clientBooksDTO", target = "clientBooks")
 	Client mapToClient(ClientDTO clientDTO);

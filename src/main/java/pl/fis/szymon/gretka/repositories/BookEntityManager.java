@@ -23,7 +23,7 @@ public class BookEntityManager {
 	
 	public BookEntityManager() {}
 	
-	public Book findBookById(int bookID) { 
+	public Book findBookById(long bookID) { 
 		Book book = entityManager.find(Book.class, bookID); 
 		return book;
 	}

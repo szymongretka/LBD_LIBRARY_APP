@@ -14,7 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity(name = "AUTHOR")
 public class Author implements Serializable {
 	
@@ -28,8 +33,8 @@ public class Author implements Serializable {
     private String firstName;
     private String lastName;
     
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    //@JsonBackReference
     private Set<Book> books = new HashSet<>();
 
     

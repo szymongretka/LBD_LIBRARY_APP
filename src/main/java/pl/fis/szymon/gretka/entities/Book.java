@@ -17,36 +17,44 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import com.fasterxml.jackson.annotation.JsonManagedReference;;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;;
 
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity(name = "BOOK")
-public class Book implements Serializable {
+public class Book { // implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "BOOK_ID") 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Column(name = "name", nullable = false, length = 50) 
+	@Column(name = "name", nullable = false, length = 50)
+	@NotBlank
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "book_categories",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "category_id")})
-	@JsonManagedReference
+	//@JsonManagedReference
     private Set<Category> categories = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "book_authors",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "author_id")})
-	@JsonManagedReference
+	//@JsonManagedReference
     private Set<Author> authors = new HashSet<>();
 	
 	@Column(name = "isBorrowed", nullable = false)
