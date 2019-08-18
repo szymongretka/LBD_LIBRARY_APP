@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import pl.fis.szymon.gretka.entities.Book;
 import pl.fis.szymon.gretka.entities.Client;
 import pl.fis.szymon.gretka.repositories.ClientEntityManager;
 
@@ -37,14 +38,30 @@ public class ClientEndpoint {
 	
 	@DELETE
 	@Path("/{id}")
-	public void deleteClient(@PathParam("id") long id) {
+	public void deleteClient(@PathParam("id") int id) {
+		
 		clientEntityManager.deleteClient(id);
 	}
 	
 	@PUT
 	@Path("/{id}")
-	public void updateClient(@PathParam("id") long id, Client client) {
+	public void updateClient(@PathParam("id") int id, Client client) {
 		clientEntityManager.updateClient(id, client);
+	}
+	
+	@GET
+	@Path("/{id}/books")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Book> getListOfBooks(@PathParam("id") int id) {
+		List<Book> list = clientEntityManager.getBooksFromClient(id);
+		return list;
+	}
+	
+	@DELETE
+	@Path("/{clientId}/{bookId}")
+	public void deleteBookFromClient(@PathParam("clientId") int clientId, @PathParam("bookId") long bookId) {
+		
+		clientEntityManager.deleteBookFromClient(clientId, bookId);
 	}
 	
 }

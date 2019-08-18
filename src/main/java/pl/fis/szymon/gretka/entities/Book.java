@@ -57,7 +57,7 @@ public class Book { // implements Serializable {
 	//@JsonManagedReference
     private Set<Author> authors = new HashSet<>();
 	
-	@Column(name = "isBorrowed", nullable = false)
+	@Column(name = "isBorrowed", columnDefinition = "boolean default false")
 	private boolean isBorrowed;
 
 	private Date date_of_borrow;

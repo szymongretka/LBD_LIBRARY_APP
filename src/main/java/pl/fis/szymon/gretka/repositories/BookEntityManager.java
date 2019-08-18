@@ -12,6 +12,7 @@ import pl.fis.szymon.gretka.entities.Author;
 import pl.fis.szymon.gretka.entities.Book;
 import pl.fis.szymon.gretka.entities.Category;
 import pl.fis.szymon.gretka.entities.Client;
+import pl.fis.szymon.gretka.exceptions.ResourceNotFound;
 
 @Stateless
 public class BookEntityManager {
@@ -46,11 +47,8 @@ public class BookEntityManager {
     
     public void borrowBook(long bookId, Client client) {
     	Book book = entityManager.find(Book.class, bookId);
-    	if(book.isBorrowed()) {
-    		log.info("is borrowed");
-    	} else {
-    		book.setClient(client);
-    	}
+    	book.setClient(client);
+    	book.setBorrowed(true);
     }
     
 

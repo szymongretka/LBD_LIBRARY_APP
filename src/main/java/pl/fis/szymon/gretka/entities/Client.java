@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity(name = "CLIENT")
 public class Client implements Serializable {
@@ -63,6 +66,11 @@ public class Client implements Serializable {
 		//book.addClient(this);
 		book.setClient(this);
 	}
+	
+	public void setClientBooks(Set<Book> clientBooks) {
+		this.clientBooks = clientBooks;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

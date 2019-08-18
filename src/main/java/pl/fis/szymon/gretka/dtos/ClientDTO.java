@@ -3,6 +3,9 @@ package pl.fis.szymon.gretka.dtos;
 import java.io.Serializable;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientDTO implements Serializable {
 	
 
